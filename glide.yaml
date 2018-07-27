@@ -1,0 +1,9 @@
+package: robot
+import:
+- package: github.com/nntaoli-project/GoEx
+- package: github.com/go-ini/ini
+- package: github.com/eclipse/paho.mqtt.golang
+- package: github.com/golang/protobuf
+
+ignore:
+  - golang.org/x/sys/unix

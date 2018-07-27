@@ -1,0 +1,16 @@
+hash: 68ece883cd2e9d4cf72591f7a3d4207b660c61ebbde1ecbc5a14c3ae9ddbd03c
+updated: 2018-07-26T15:11:01.4244918+08:00
+imports:
+- name: github.com/eclipse/paho.mqtt.golang
+  version: 36d01c2b4cbeb3d2a12063e4880ce30800af9560
+- name: github.com/go-ini/ini
+  version: d58d458bec3cb5adec4b7ddb41131855eac0b33f
+- name: github.com/golang/protobuf
+  version: 93b26e6a70e37abb14f2f88194949312b0592a84
+  subpackages:
+  - proto
+- name: github.com/gorilla/websocket
+  version: a91eba7f97777409bc2c443f5534d41dd20c5720
+- name: github.com/nntaoli-project/GoEx
+  version: 12c3580b9082d796c10fc64e621515a2d4f8332f
+testImports: []
