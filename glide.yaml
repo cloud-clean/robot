@@ -1,9 +1,10 @@
 package: robot
 import:
-- package: github.com/nntaoli-project/GoEx
 - package: github.com/go-ini/ini
 - package: github.com/eclipse/paho.mqtt.golang
 - package: github.com/golang/protobuf
-
+- package: github.com/robfig/cron
+- package: golang.org/x/net
+- package: github.com/boltdb/bolt
 ignore:
   - golang.org/x/sys/unix

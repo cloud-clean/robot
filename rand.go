@@ -1,26 +1,22 @@
 package main
 
 import (
-	"crypto/rand"
 	"fmt"
 	"net"
 	"os"
 	"strings"
 	"time"
+	"robot/cron"
 )
 
 func main(){
-	var sb [4]byte
-	rand.Read(sb[:])
-	fmt.Println(sb)
-	fmt.Printf("%x\n",sb[3])
-	fmt.Printf("%x\n",sb[2])
-	fmt.Printf("%x\n",sb[1])
-	fmt.Printf("%x\n",sb[0])
-	fmt.Printf("%x\n",int(sb[0])<<8)
-	seed := int64(int64(time.Now().Nanosecond()<<32)|int64(sb[0])<<24|int64(sb[1])<<16|int64(sb[2])<<8|int64(sb[3]))
-	fmt.Printf("%x\n",seed)
-	//server()
+	cron.CronInit()
+	cron.AddJob("test",time.Now().Add(time.Second*10),func(){
+		fmt.Println("job is running....")
+	})
+	select{
+
+	}
 
 
 }

@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"strings"
 	"fmt"
+	"errors"
 )
 
 type HttpHandler func(params *Params)*WebResult
@@ -22,6 +23,7 @@ type Router struct{
 }
 
 func (router *Router) ServeHTTP(w http.ResponseWriter,r *http.Request){
+	log.Infof("receive %s request for %s",r.Method,r.URL.Path)
 	if route,ok := router.getRouter(r.URL.Path,r.Method);ok{
 		params,err := getParams(r,route.Params)
 		if err != nil{
@@ -89,11 +91,18 @@ func getParams(r *http.Request,keys []string) (*Params,error){
 		}
 		return parm,nil
 	}else{
+		r.ParseForm()
+		fmt.Println(r.PostForm)
 		result,_ := ioutil.ReadAll(r.Body)
+		fmt.Println("data:"+string(result))
 		err := json.Unmarshal(result,&params)
 		if err != nil{
 			return nil,err
 		}
+		if params == nil{
+			return nil,errors.New("params is nil")
+		}
+		parm.data = params
 		return parm,nil
 	}
 }

@@ -1,14 +1,16 @@
 package mqtt
 
 import (
-	"fmt"
 	"github.com/eclipse/paho.mqtt.golang"
+	"robot/common/logger"
 )
 
 const(
 	MQTT_SERVER = "tcp://202.182.118.148:61613"
-	CLIENT_ID = "lot"
+	CLIENT_ID = "lotServer"
 )
+
+var log = logger.NewLog()
 type MqttClient struct {
 	Client mqtt.Client
 }
@@ -20,8 +22,8 @@ func NewMqttClient(username,password string) *MqttClient{
 	opts.SetPassword(password)
 	c := mqtt.NewClient(opts)
 	if token:= c.Connect();token.Wait() && token.Error() != nil{
-		fmt.Println(token.Error())
-		panic(token.Error())
+		log.Errorf("connect mqtt server error  %s",token.Error())
+		return nil
 	}
 	return &MqttClient{Client:c}
 }
@@ -35,7 +37,7 @@ func (self *MqttClient) Publish(topic,msg string) bool{
 }
 
 func (self *MqttClient) Subscribe(topic string,handler mqtt.MessageHandler){
-	if token:=self.Client.Subscribe(topic,0,handler);token.Wait() && token.Error() != nil{
+	if token:=self.Client.Subscribe(topic,1,handler);token.Wait() && token.Error() != nil{
 	}
 }
 

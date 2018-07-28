@@ -1,5 +1,10 @@
 package http
 
+const(
+	SUCCESS = 1
+	FAIL	= 0
+)
+
 type WebResult struct {
 	Code int						`json:"code"`
 	Result map[string]interface{}	`json:"result"`
