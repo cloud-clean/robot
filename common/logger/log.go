@@ -60,19 +60,19 @@ func init(){
 		logio = io.MultiWriter(append([]io.Writer{},os.Stdout,logfile)...)
 		logger.SetOutput(logio)
 	})
-	go func(){
-		ss := make(chan os.Signal,1)
-		signal.Notify(ss,syscall.SIGEMT,syscall.SIGINT)
-		for{
-			select {
-			case <- ss:
-				fmt.Println("program quit")
-				return
-			case strlog := <- l.c:
-				logger.Output(2,strlog)
-			}
-		}
-	}()
+	//go func(){
+	//	ss := make(chan os.Signal,1)
+	//	signal.Notify(ss,syscall.SIGEMT,syscall.SIGINT)
+	//	for{
+	//		select {
+	//		case <- ss:
+	//			fmt.Println("program quit")
+	//			return
+	//		case strlog := <- l.c:
+	//			logger.Output(2,strlog)
+	//		}
+	//	}
+	//}()
 
 }
 func NewLog() *stclog{

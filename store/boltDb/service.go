@@ -3,10 +3,6 @@ package boltDb
 import (
 	"github.com/boltdb/bolt"
 	"robot/common/logger"
-	"os/signal"
-	"syscall"
-	"os"
-	"fmt"
 )
 
 var log = logger.NewLog()
@@ -18,18 +14,18 @@ func init(){
 	//if err != nil{
 	//	log.Errorf("init db fail error:%s",err.Error())
 	//}
-	go func(){
-		ss := make(chan os.Signal,1)
-		signal.Notify(ss,syscall.SIGEMT,syscall.SIGINT)
-		for{
-			select {
-			case <-ss:
-				fmt.Println("program quit")
-				db.Close()
-				return
-			}
-		}
-	}()
+	//go func(){
+	//	ss := make(chan os.Signal,1)
+	//	signal.Notify(ss,syscall.SIGEMT,syscall.SIGINT)
+	//	for{
+	//		select {
+	//		case <-ss:
+	//			fmt.Println("program quit")
+	//			db.Close()
+	//			return
+	//		}
+	//	}
+	//}()
 }
 
 func Put(key ,value []byte)bool{
