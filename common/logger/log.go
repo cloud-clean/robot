@@ -9,8 +9,6 @@ import (
 	"runtime"
 	"io"
 	"time"
-	"os/signal"
-	"syscall"
 )
 const(
 	MAXSIZE = 10240
@@ -133,14 +131,14 @@ func outstringformat(format string,a ...interface{}) string {
 
 func rotateLog(handler func()){
 	go func() {
-		ss := make(chan os.Signal,1)
-		signal.Notify(ss,syscall.SIGINT,syscall.SIGEMT)
+		//ss := make(chan os.Signal,1)
+		//signal.Notify(ss,syscall.SIGINT,syscall.SIGEMT)
 		dur := getNextDateDuration()
 		timer := time.NewTimer(dur)
 		for{
 			select {
-			case <- ss:
-				return
+			//case <- ss:
+			//	return
 			case <- timer.C:
 				dur := getNextDateDuration()
 				timer.Reset(dur)
