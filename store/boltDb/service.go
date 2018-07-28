@@ -10,14 +10,14 @@ import (
 )
 
 var log = logger.NewLog()
-var db *bolt.DB
+var db *bolt.DB = nil
 var BUCKET_NAME = []byte("lot")
 
 func init(){
-	db,err := bolt.Open("robot.db",0600,nil)
-	if err != nil{
-		log.Errorf("init db fail error:%s",err.Error())
-	}
+	db,_ = bolt.Open("robot.db",0700,nil)
+	//if err != nil{
+	//	log.Errorf("init db fail error:%s",err.Error())
+	//}
 	go func(){
 		ss := make(chan os.Signal,1)
 		signal.Notify(ss,syscall.SIGEMT,syscall.SIGINT)

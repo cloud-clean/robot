@@ -91,10 +91,7 @@ func getParams(r *http.Request,keys []string) (*Params,error){
 		}
 		return parm,nil
 	}else{
-		r.ParseForm()
-		fmt.Println(r.PostForm)
 		result,_ := ioutil.ReadAll(r.Body)
-		fmt.Println("data:"+string(result))
 		err := json.Unmarshal(result,&params)
 		if err != nil{
 			return nil,err

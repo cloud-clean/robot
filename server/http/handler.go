@@ -61,7 +61,7 @@ func SetToDb(params *Params) *WebResult{
 		return NewResult(FAIL,"key or value is nil")
 	}
 	if boltDb.PutString(key,value){
-		return NewResult(SUCCESS,entity.SwitchEntity{Position:key,Status:value})
+		return NewResult(SUCCESS,"success")
 	}
 	return NewResult(FAIL,"store to db fail")
 }
