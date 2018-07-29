@@ -55,7 +55,11 @@ func (router *Router)getRouter(url,method string)(*Route,bool){
 	if router == nil {
 		return nil, false
 	}
-	return router.RouteMap[method+"_"+url],true
+	route := router.RouteMap[method+"_"+url]
+	if route == nil{
+		return nil,false
+	}
+	return route,true
 }
 
 type Params struct {
