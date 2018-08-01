@@ -12,11 +12,15 @@ import (
 )
 
 func PinHandler(params *Params)*WebResult{
+
 	pos := params.Get("pos")
 	status := params.Get("status")
 	msg := entity.SwitchEntity{Position:pos,Status:status}
 	data,_ := json.Marshal(msg)
+	start:=time.Now()
 	err := mqtt.Send("lot",data)
+	dur := time.Now().Sub(start)
+	log.Infof("after send time:%d",dur.Nanoseconds())
 	if err != nil{
 		fmt.Println(err.Error())
 		return NewResult(FAIL,"error")
