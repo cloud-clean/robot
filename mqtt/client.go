@@ -6,7 +6,7 @@ import (
 )
 
 const(
-	MQTT_SERVER = "tcp://202.182.118.148:61613"
+	MQTT_SERVER = "tcp://127.0.0.1:61613"
 	CLIENT_ID = "lotServer"
 )
 
