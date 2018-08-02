@@ -7,6 +7,7 @@ import (
 	"strings"
 	"fmt"
 	"errors"
+	"time"
 )
 
 type HttpHandler func(params *Params)*WebResult
@@ -23,6 +24,7 @@ type Router struct{
 }
 
 func (router *Router) ServeHTTP(w http.ResponseWriter,r *http.Request){
+	start:=time.Now();
 	log.Infof("receive %s request for %s",r.Method,r.URL.Path)
 	if route,ok := router.getRouter(r.URL.Path,r.Method);ok{
 		params,err := getParams(r,route.Params)
@@ -39,6 +41,8 @@ func (router *Router) ServeHTTP(w http.ResponseWriter,r *http.Request){
 	}else{
 		http.NotFound(w,r)
 	}
+	dur:=time.Now().Sub(start);
+	log.Infof("http parse time:%d",dur.Nanoseconds())
 }
 
 func(router *Router) RegRoutes(routes []*Route){
