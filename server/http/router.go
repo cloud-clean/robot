@@ -29,6 +29,11 @@ func (router *Router) ServeHTTP(w http.ResponseWriter,r *http.Request){
 		if err != nil{
 			http.Error(w,err.Error(),400)
 		}
+		if route.Params != nil || len(route.Params) > 0{
+			if(params == nil){
+				http.Error(w,"params is not format",400)
+			}
+		}
 		res := route.Handler(params)
 		writeResp(w,res)
 	}else{
