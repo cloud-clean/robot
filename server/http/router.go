@@ -88,7 +88,8 @@ func getParams(r *http.Request,keys []string) (*Params,error){
 	parm := &Params{}
 	params := make(map[string]interface{})
 	parm.data = params
-	if r.Method == "GET"{
+	switch r.Method{
+	case "GET":
 		r.ParseForm()
 		for _,key := range keys{
 			value := r.Form.Get(key)
@@ -98,6 +99,38 @@ func getParams(r *http.Request,keys []string) (*Params,error){
 			params[key] = value
 		}
 		return parm,nil
+	case "POST":
+		ct := r.Header.Get("Content-Type")
+		switch(ct){
+		case "application/x-www-form-urlencoded":
+			r.ParseForm()
+			for _,k := range keys{
+				value := r.PostFormValue(k)
+
+			}
+			return
+		case "application/json":
+			result,_ := ioutil.ReadAll(r.Body)
+			err := json.Unmarshal(result,&params)
+			if err != nil{
+				return nil,err
+			}
+			if params == nil{
+				return nil,errors.New("params is nil")
+			}
+			parm.data = params
+			return parm,nil
+
+		}
+		break
+	case "PUT":
+		break
+	default:
+		break
+		
+	}
+	if r.Method == "GET"{
+		
 	}else{
 		result,_ := ioutil.ReadAll(r.Body)
 		err := json.Unmarshal(result,&params)
