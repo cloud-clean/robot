@@ -47,6 +47,9 @@ func Get(key []byte) []byte{
 	var v []byte
 	err := db.View(func(tx *bolt.Tx)error{
 		b := tx.Bucket(BUCKET_NAME)
+		if(b == nil){
+			return nil
+		}
 		v = b.Get(key)
 		return nil
 	})
